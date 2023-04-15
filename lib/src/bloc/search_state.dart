@@ -5,23 +5,21 @@ enum SearchStatus { initial, standby, searching, continuing }
 class SearchState extends Equatable {
   const SearchState({
     this.status = SearchStatus.initial,
-    this.language = 'de',
     this.canContinue = false,
     this.lastSearchTerm = '',
-    this.limit = 10,
     this.offset = 0,
     this.results = const <Search>[],
-    this.articles = const <int, Article>{}
+    this.articles = const <int, Article>{},
+    this.history = const <Article>[]
   });
 
   final SearchStatus status;
-  final String language;
   final bool canContinue;
   final String lastSearchTerm;
-  final int limit;
   final int offset;
   final List<Search> results;
   final Map<int, Article> articles;
+  final List<Article> history;
 
   SearchState copyWith({
     SearchStatus? status,
@@ -31,27 +29,25 @@ class SearchState extends Equatable {
       int? limit,
       int? offset,
       List<Search>? results,
-      Map<int, Article>? articles
+      Map<int, Article>? articles,
+      List<Article>? history
   }) {
     return SearchState(
         status: status ?? this.status,
-        language: language ?? this.language,
         canContinue: canContinue ?? this.canContinue,
         lastSearchTerm: lastSearchTerm ?? this.lastSearchTerm,
-        limit: limit ?? this.limit,
         offset: offset ?? this.offset,
         results: results ?? this.results,
-        articles: articles ?? this.articles
+        articles: articles ?? this.articles,
+        history: history ?? this.history
     );
   }
 
   SearchState newSearch(bool canContinue, String lastSearchTerm, int offset, List<Search> newResults, Map<int, Article> newArticles) {
-    return SearchState(
+    return copyWith(
         status: SearchStatus.standby,
-        language: language,
         canContinue: canContinue,
         lastSearchTerm: lastSearchTerm,
-        limit: limit,
         offset: offset,
         results: newResults,
         articles: newArticles
@@ -59,12 +55,10 @@ class SearchState extends Equatable {
   }
 
   SearchState continueSearch(bool canContinue, int offset, List<Search> newResults, Map<int, Article> newArticles) {
-    return SearchState(
+    return copyWith(
         status: SearchStatus.standby,
-        language: language,
         canContinue: canContinue,
         lastSearchTerm: lastSearchTerm,
-        limit: limit,
         offset: offset,
         results: results..addAll(newResults),
         articles: articles..addAll(newArticles)
@@ -72,7 +66,7 @@ class SearchState extends Equatable {
   }
 
   @override
-  List<Object?> get props => [status, language, canContinue, lastSearchTerm, limit, offset, results, articles];
+  List<Object?> get props => [status, canContinue, lastSearchTerm, offset, results, articles, history];
 
   bool isInitial() => (status == SearchStatus.initial);
   bool isStandby() => (status == SearchStatus.standby);
@@ -80,7 +74,7 @@ class SearchState extends Equatable {
   bool isContinuing() => (status == SearchStatus.continuing);
 
   Article getArticle(int pageID) {
-    if (articles[pageID] != null) return articles[pageID]!;
+    if (articles.containsKey(pageID)) return articles[pageID]!;
     return Article();
   }
 }

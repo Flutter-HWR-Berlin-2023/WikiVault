@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:settings_ui/settings_ui.dart';
+import 'package:wiki_vault/src/views/widgets/sidebar.dart';
 
-import '../widgets/general/sidebar.dart';
-
-class SettingsPage extends StatelessWidget {
+class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);
+
+  @override
+  State<SettingsPage> createState() => _SettingsPageState();
+}
+
+class _SettingsPageState extends State<SettingsPage> {
 
   PreferredSizeWidget _appbar() {
     return AppBar(
@@ -12,7 +18,47 @@ class SettingsPage extends StatelessWidget {
   }
 
   Widget _body(BuildContext context) {
-    return const Center(child: Text('Keine Einstellungen vorhanden'));
+    return SettingsList(
+      sections: [
+        SettingsSection(
+          title: const Text('Allgemein', style: TextStyle(color: Colors.red)),
+          tiles: <SettingsTile>[
+            SettingsTile.navigation(
+              leading: const Icon(Icons.language),
+              title: const Text('Sprache der Anwendung'),
+              value: const Text('Deutsch'),
+              enabled: false,
+            ),
+            SettingsTile.switchTile(
+              onToggle: (value) {},
+              initialValue: false,
+              leading: const Icon(Icons.format_paint),
+              title: const Text('Benutzerdefiniertes Design'),
+              enabled: false,
+            ),
+          ],
+        ),
+        SettingsSection(
+          title: const Text('Suche', style: TextStyle(color: Colors.red)),
+          tiles: <SettingsTile>[
+            SettingsTile.navigation(
+              leading: const Icon(Icons.language),
+              title: const Text('Sprache der Artikel'),
+              value: const Text('Deutsch'),
+              enabled: false,
+            ),
+            SettingsTile.switchTile(
+              onToggle: (value) {},
+              initialValue: true,
+              leading: const Icon(Icons.text_snippet),
+              title: const Text('Textausschnitt'),
+              description: const Text('Ausschnitt des Artikels'),
+              enabled: false,
+            ),
+          ],
+        )
+      ],
+    );
   }
 
   @override

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wiki_vault/src/bloc/search_bloc.dart';
 import 'package:wiki_vault/src/models/article.dart';
 import 'package:wiki_vault/src/views/screens/article_page.dart';
 import 'package:wiki_vault/src/views/screens/bookmark_page.dart';
@@ -18,7 +20,11 @@ class Routes {
       case "/settings":
         return FadeTransitionRoute<bool>(builder: (BuildContext context) => const SettingsPage(), settings: settings);
       case "/article":
-        return SlideTransitionRoute<bool>(builder: (BuildContext context) => ArticlePage(settings.arguments as Article), settings: settings);
+        return FadeTransitionRoute<bool>(builder: (BuildContext context) {
+          Article article = settings.arguments as Article;
+          BlocProvider.of<SearchBloc>(context).add(SearchAddHistory(article));
+          return ArticlePage(article);
+        }, settings: settings);
       default:
         return FadeTransitionRoute<bool>(builder: (BuildContext context) => const SearchPage(), settings: settings);
     }
@@ -33,18 +39,6 @@ class FadeTransitionRoute<T> extends MaterialPageRoute<T> {
     return FadeTransition(
         opacity: CurvedAnimation(parent: animation, curve: Curves.fastOutSlowIn),
         child: child
-    );
-  }
-}
-
-class SlideTransitionRoute<T> extends MaterialPageRoute<T> {
-  SlideTransitionRoute({required WidgetBuilder builder, RouteSettings? settings}) : super(builder: builder, settings: settings);
-
-  @override
-  Widget buildTransitions(BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
-    return SlideTransition(
-      position: Tween<Offset>(begin: const Offset(1.0, 0.0), end: const Offset(0.0, 0.0)).animate(CurvedAnimation(parent: animation, curve: Curves.fastOutSlowIn)),
-      child: child,
     );
   }
 }

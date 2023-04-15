@@ -14,6 +14,7 @@ class Sidebar extends StatelessWidget {
 
   static Sidebar search() {return const Sidebar(page: Pages.search);}
   static Sidebar bookmark() {return const Sidebar(page: Pages.bookmark);}
+  static Sidebar history() {return const Sidebar(page: Pages.history);}
   static Sidebar settings() {return const Sidebar(page: Pages.settings);}
 
   ListTile _menuButton(String title, IconData icon, bool isActive, Function onPressed) {

@@ -3,7 +3,7 @@ class Search{
   int pageID;
   int size;
   int wordCount;
-  String snippet;
+  String? snippet;
   String? description;
   String? extract;
   String timeStamp;
@@ -13,7 +13,7 @@ class Search{
     required this.pageID,
     required this.size,
     required this.wordCount,
-    required this.snippet,
+    this.snippet,
     this.description,
     this.extract,
     required this.timeStamp,

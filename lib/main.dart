@@ -24,16 +24,15 @@ class WikiVault extends StatelessWidget {
           BlocProvider(lazy: false, create: (BuildContext context) => BookmarkBloc()..add(BookmarkInit())),
         ],
         child: MaterialApp(
+          title: 'WikiVault',
+          onGenerateRoute: (routeSettings) => Routes.onGenerateRoute(routeSettings),
+          initialRoute: '/search',
           theme: ThemeData(
             appBarTheme: const AppBarTheme(
               color: Colors.redAccent,
             ),
-            primaryColor: Colors.redAccent,
-            scaffoldBackgroundColor: Colors.white,
-          ),
-          title: 'WikiVault',
-          onGenerateRoute: (routeSettings) => Routes.onGenerateRoute(routeSettings),
-          initialRoute: '/search'
+            primaryColor: Colors.redAccent
+          )
         )
     );
   }

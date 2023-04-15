@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wiki_vault/src/bloc/search_bloc.dart';
-import 'package:wiki_vault/src/views/widgets/general/loading.dart';
+import 'package:wiki_vault/src/views/widgets/loading.dart';
 import 'package:wiki_vault/src/views/widgets/search/search_list.dart';
-
-import '../widgets/general/sidebar.dart';
+import 'package:wiki_vault/src/views/widgets/sidebar.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({Key? key}) : super(key: key);
@@ -24,18 +23,18 @@ class _SearchPageState extends State<SearchPage> {
             controller: search,
             textInputAction: TextInputAction.search,
             onSubmitted: (String text) => BlocProvider.of<SearchBloc>(context).add(SearchTerm(text)),
+            cursorColor: Colors.redAccent,
             decoration: const InputDecoration(
-              border: OutlineInputBorder(
-                borderSide: BorderSide(width: 0.5, style: BorderStyle.solid),
-                //borderRadius: BorderRadius.all(Radius.circular(25.0)),
-              ),
+              border: OutlineInputBorder(borderSide: BorderSide(width: 0.5, style: BorderStyle.solid)),
               hintText: 'Suchen...',
               filled: true,
               fillColor: Colors.white,
-              contentPadding: EdgeInsets.all(10),
+              contentPadding: EdgeInsets.all(15),
             ),
           )),
-      actions: <Widget>[IconButton(onPressed: () => BlocProvider.of<SearchBloc>(context).add(SearchTerm(search.text)), icon: const Icon(Icons.search))],
+      actions: <Widget>[
+        IconButton(onPressed: () => BlocProvider.of<SearchBloc>(context).add(SearchTerm(search.text)), icon: const Icon(Icons.search))
+      ],
     );
   }
 
@@ -49,12 +48,12 @@ class _SearchPageState extends State<SearchPage> {
           case SearchStatus.standby:
           case SearchStatus.continuing:
             if (state.lastSearchTerm.isEmpty) {
-              return const Center(child: Text('Suche nach Artikeln!'));
+              return const Center(child: Text('Suche nach Artikeln!', style: TextStyle(fontSize: 18)));
             }
             if (state.results.isEmpty) {
-              return const Center(child: Text('Keine Ergebnisse'));
+              return const Center(child: Text('Keine Ergebnisse', style: TextStyle(fontSize: 18)));
             }
-            return SearchList(list: state.results, canContinue: state.canContinue);
+            return SearchList(state.results, state.articles, state.canContinue, state.status == SearchStatus.continuing);
         }
       },
     );
