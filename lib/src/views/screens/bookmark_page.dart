@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wiki_vault/src/bloc/bookmark_bloc.dart';
 import 'package:wiki_vault/src/views/widgets/bookmark/bookmark_list.dart';
-import 'package:wiki_vault/src/views/widgets/general/loading.dart';
-
-import '../widgets/general/sidebar.dart';
+import 'package:wiki_vault/src/views/widgets/loading.dart';
+import 'package:wiki_vault/src/views/widgets/sidebar.dart';
 
 class BookmarkPage extends StatelessWidget {
   const BookmarkPage({Key? key}) : super(key: key);
@@ -24,9 +23,9 @@ class BookmarkPage extends StatelessWidget {
             return const Center(child: Loading());
           case BookmarkStatus.standby:
             if (state.bookmarksEmpty()) {
-              return const Center(child: Text('Keine Lesezeichen'));
+              return const Center(child: Text('Keine Lesezeichen', style: TextStyle(fontSize: 18)));
             }
-           return BookmarkList(state.getGroups(), state.getArticles());
+            return BookmarkList(state.getGroups(), state.getArticles());
         }
       },
     );

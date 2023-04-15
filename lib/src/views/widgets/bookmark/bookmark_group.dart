@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:wiki_vault/src/models/article_group.dart';
 
 class BookmarkGroup extends StatelessWidget {
-  const BookmarkGroup(this.articleGroup, {Key? key, required }) : super(key: key);
+  const BookmarkGroup(this.articleGroup, {Key? key}) : super(key: key);
   final ArticleGroup articleGroup;
 
   @override

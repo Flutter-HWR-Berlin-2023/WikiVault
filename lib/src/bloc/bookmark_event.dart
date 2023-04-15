@@ -8,8 +8,8 @@ abstract class BookmarkEvent extends Equatable {
 class BookmarkInit extends BookmarkEvent {}
 
 class AddBookmark extends BookmarkEvent {
-  AddBookmark(this.pageID);
-  final int pageID;
+  AddBookmark(this.article);
+  final Article article;
 }
 
 class RemoveBookmark extends BookmarkEvent {

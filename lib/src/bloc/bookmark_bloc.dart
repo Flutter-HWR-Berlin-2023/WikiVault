@@ -4,8 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-import '../models/article.dart';
-import '../models/article_group.dart';
+import 'package:wiki_vault/src/models/article.dart';
+import 'package:wiki_vault/src/models/article_group.dart';
 
 part 'bookmark_event.dart';
 part 'bookmark_state.dart';
@@ -27,10 +27,22 @@ class BookmarkBloc extends Bloc<BookmarkEvent, BookmarkState> {
   }
 
   Future<void> _addBookmark(AddBookmark event, Emitter<BookmarkState> emit) async {
+    Article article = event.article;
+    List<int> articles = state.article.toList(growable: true);
 
+    state.articleBox!.put(article.pageID, article);
+    articles.add(article.pageID);
+
+    emit(state.copyWith(article: articles));
   }
 
   Future<void> _removeBookmark(RemoveBookmark event, Emitter<BookmarkState> emit) async {
+    List<int> articles = state.article.toList(growable: true);
+
+    state.articleBox!.delete(event.pageID);
+    articles.remove(event.pageID);
+
+    emit(state.copyWith(article: articles));
 
   }
 

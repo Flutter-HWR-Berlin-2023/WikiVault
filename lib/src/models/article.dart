@@ -31,7 +31,7 @@ class Article {
     return Article(
         pageID: json['pageid'],
         title: json['title'],
-        article: json['text'],
+        article: json['extract'],
         description: json['description'] != null ? json['description'][0] : null
     );
   }
