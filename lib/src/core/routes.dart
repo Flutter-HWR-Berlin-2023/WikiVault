@@ -7,14 +7,17 @@ import 'package:wiki_vault/src/views/screens/bookmark_page.dart';
 import 'package:wiki_vault/src/views/screens/history_page.dart';
 import 'package:wiki_vault/src/views/screens/search_page.dart';
 import 'package:wiki_vault/src/views/screens/settings_page.dart';
+import 'package:wiki_vault/src/views/screens/splash_screen.dart';
 
 class Routes {
   static Route onGenerateRoute(RouteSettings settings) {
     switch (settings.name!) {
-      case "/bookmark":
-        return FadeTransitionRoute<bool>(builder: (BuildContext context) => const BookmarkPage(), settings: settings);
+      case "/splashscreen":
+        return FadeTransitionRoute<bool>(builder: (BuildContext context) => const SplashScreen(), settings: settings);
       case "/search":
         return FadeTransitionRoute<bool>(builder: (BuildContext context) => const SearchPage(), settings: settings);
+      case "/bookmark":
+        return FadeTransitionRoute<bool>(builder: (BuildContext context) => const BookmarkPage(), settings: settings);
       case "/history":
         return FadeTransitionRoute<bool>(builder: (BuildContext context) => const HistoryPage(), settings: settings);
       case "/settings":

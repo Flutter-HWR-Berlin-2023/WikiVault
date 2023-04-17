@@ -24,6 +24,7 @@ class SearchList extends StatelessWidget {
         return const Divider(color: Colors.grey);
       },
       controller: ScrollController(),
+      physics: const BouncingScrollPhysics(),
     );
   }
 }

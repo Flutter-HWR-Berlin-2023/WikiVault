@@ -48,7 +48,7 @@ class Sidebar extends StatelessWidget {
                     Navigator.of(context).pushReplacementNamed('/search');
                   });
                 }),
-                _menuButton(msg.bookmarkPage, Icons.favorite, Pages.bookmark == page, () {
+                _menuButton(msg.bookmarkPage, Icons.bookmark, Pages.bookmark == page, () {
                   Navigator.of(context).pop();
                   Future.delayed(const Duration(milliseconds: 150), () {
                     Navigator.of(context).pushReplacementNamed('/bookmark');

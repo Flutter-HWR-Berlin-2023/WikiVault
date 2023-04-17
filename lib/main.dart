@@ -26,13 +26,15 @@ class WikiVault extends StatelessWidget {
         child: MaterialApp(
           title: 'WikiVault',
           onGenerateRoute: (routeSettings) => Routes.onGenerateRoute(routeSettings),
-          initialRoute: '/search',
+          initialRoute: '/splashscreen',
           theme: ThemeData(
+            colorScheme: ColorScheme.fromSeed(seedColor: Colors.redAccent),
             appBarTheme: const AppBarTheme(
               color: Colors.redAccent,
             ),
             primaryColor: Colors.redAccent
-          )
+          ),
+          debugShowCheckedModeBanner: false,
         )
     );
   }

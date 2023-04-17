@@ -46,13 +46,15 @@ class _HistoryPageState extends State<HistoryPage> {
               title: Text(item.title),
               subtitle: item.description != null ? Text(item.description![0].toUpperCase() + item.description!.substring(1).toLowerCase()) : null,
               trailing: SearchBookmark(item),
-            onLongPress: () => Navigator.of(context).pushNamed('/article', arguments: item),
+            onTap: () => Navigator.of(context).pushNamed('/article', arguments: item),
           ),
         );
       },
       separatorBuilder: (_, index) {
         return const Divider(color: Colors.grey);
       },
+      controller: ScrollController(),
+      physics: const BouncingScrollPhysics(),
     );
   }
 

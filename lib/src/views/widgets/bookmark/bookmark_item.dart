@@ -11,7 +11,7 @@ class BookmarkItem extends StatelessWidget {
     return ListTile(
       title: Text(article.title),
       subtitle: article.description != null ? Text(article.description![0].toUpperCase() + article.description!.substring(1).toLowerCase()) : null,
-      onLongPress: () => Navigator.of(context).pushNamed('/article', arguments: article),
+      onTap: () => Navigator.of(context).pushNamed('/article', arguments: article),
     );
   }
 }
