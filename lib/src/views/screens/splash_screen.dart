@@ -49,12 +49,14 @@ class SplashScreenState extends State<SplashScreen> with TickerProviderStateMixi
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: CircleAvatar(
-                        backgroundColor: Colors.transparent,
-                        child: Image.asset('assets/icon.png'),
-                        radius: 100,
+                    Flexible(
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: CircleAvatar(
+                          backgroundColor: Colors.transparent,
+                          child: Image.asset('assets/icon.png'),
+                          radius: 100,
+                        ),
                       ),
                     ),
                     const Text("WikiVault", style: TextStyle(color: Colors.black54, fontWeight: FontWeight.w200, fontSize: 38.0))
