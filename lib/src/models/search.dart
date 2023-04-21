@@ -1,3 +1,4 @@
+// Class for search result with methods for copying and parsing JSON data.
 class Search{
   String title;
   int pageID;

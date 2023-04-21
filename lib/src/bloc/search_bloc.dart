@@ -10,6 +10,8 @@ import 'package:wiki_vault/src/models/search.dart';
 part 'search_event.dart';
 part 'search_state.dart';
 
+// SearchBloc implements asynchronous methods for fetching and processing search results and articles 
+// from the uniquely behaving Wikipedia API
 class SearchBloc extends Bloc<SearchEvent, SearchState> {
   SearchBloc() : super(const SearchState()) {
     on<SearchInit>(_init);
@@ -20,8 +22,6 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     on<SearchAddHistory>(_addHistory);
     on<SearchRemoveHistory>(_removeHistory);
   }
-
-
 
   final http.Client httpClient = http.Client();
 
@@ -37,8 +37,6 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   void _loadSettings() {
 
   }
-
-
 
   Future<void> _searchTerm(SearchTerm event, Emitter<SearchState> emit) async {
     if (state.status == SearchStatus.initial || state.status == SearchStatus.searching || state.status == SearchStatus.continuing) return;
@@ -118,8 +116,6 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     return searches;
   }
 
-
-
   Future<void> _getArticle(SearchGetArticle event, Emitter<SearchState> emit) async {
     Map<int, Article> articles = state.articles;
     Map<int, Article> newArticle = await _fetchArticle(event.pageID);
@@ -156,8 +152,6 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     return articles;
   }
 
-
-
   void _addHistory(SearchAddHistory event, Emitter<SearchState> emit) async {
     List<Article> newHistory = state.history.toList(growable: true);
     newHistory.removeWhere((element) => element.pageID == event.article.pageID);
@@ -169,6 +163,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   void _removeHistory(SearchRemoveHistory event, Emitter<SearchState> emit) async {
     List<Article> newHistory = state.history.toList(growable: true);
     newHistory.removeWhere((element) => element.pageID == event.pageID);
+    
     emit(state.copyWith(history: newHistory));
   }
 }

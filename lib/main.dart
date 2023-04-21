@@ -5,11 +5,14 @@ import 'package:wiki_vault/src/models/article.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+// import 'package:wiki_vault/src/models/article_group.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // Initialize Hive database
   await Hive.initFlutter();
   Hive.registerAdapter(ArticleAdapter());
+  //Hive.registerAdapter(ArticleGroupAdapter());
   runApp(const WikiVault());
 }
 
@@ -26,7 +29,7 @@ class WikiVault extends StatelessWidget {
         child: MaterialApp(
           title: 'WikiVault',
           onGenerateRoute: (routeSettings) => Routes.onGenerateRoute(routeSettings),
-          initialRoute: '/splashscreen',
+          initialRoute: '/splash',
           theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.redAccent),
             appBarTheme: const AppBarTheme(

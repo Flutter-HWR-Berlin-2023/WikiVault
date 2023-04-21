@@ -4,6 +4,8 @@ import 'package:wiki_vault/src/views/widgets/bookmark/bookmark_item.dart';
 import 'package:wiki_vault/src/models/article.dart';
 import 'package:wiki_vault/src/models/article_group.dart';
 
+// Defining a stateless widget that builds ListView of BookmarkItems separated by Dividers
+// Using a list of ArticleGroups and(/or) Articles as input.
 class BookmarkList extends StatelessWidget {
   const BookmarkList(this.groupList, this.articleList, {Key? key}) : super(key: key);
 

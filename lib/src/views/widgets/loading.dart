@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// Cicrular progress indicator to be used as a loading widget across the app
 class Loading extends StatelessWidget {
   const Loading({Key? key}) : super(key: key);
 

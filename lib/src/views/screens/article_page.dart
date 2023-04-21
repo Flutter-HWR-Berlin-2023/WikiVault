@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:wiki_vault/src/models/article.dart';
 
+// Displaying an article in full
 class ArticlePage extends StatelessWidget {
   const ArticlePage(this.article, {Key? key}) : super(key: key);
   final Article article;

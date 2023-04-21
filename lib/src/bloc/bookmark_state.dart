@@ -2,13 +2,14 @@ part of 'bookmark_bloc.dart';
 
 enum BookmarkStatus { initial, loading, standby }
 
+// Defines the BookmarkState class with its properties and methods for managing bookmarks
 class BookmarkState extends Equatable {
   const BookmarkState({
     this.status = BookmarkStatus.initial,
     this.groupBox,
-    this.group = const <int>[],
+    this.group = const [],
     this.articleBox,
-    this.article = const <int>[]
+    this.article = const [],
   });
 
   final BookmarkStatus status;
@@ -22,7 +23,7 @@ class BookmarkState extends Equatable {
     Box<ArticleGroup>? groupBox,
     List<int>? group,
     Box<Article>? articleBox,
-    List<int>? article
+    List<int>? article,
   }) {
     return BookmarkState(
       status: status ?? this.status,
@@ -36,23 +37,15 @@ class BookmarkState extends Equatable {
   @override
   List<Object?> get props => [status, groupBox, group, articleBox, article];
 
-  bool isInitial() {return status == BookmarkStatus.initial;}
-  bool isLoading() {return status == BookmarkStatus.loading;}
-  bool isStandby() {return status == BookmarkStatus.standby;}
+  bool isInitial() => status == BookmarkStatus.initial;
+  bool isLoading() => status == BookmarkStatus.loading;
+  bool isStandby() => status == BookmarkStatus.standby;
 
-  bool bookmarksEmpty() {
-    return articleBox!.isEmpty;
-  }
+  bool bookmarksEmpty() => articleBox!.isEmpty;
 
-  List<ArticleGroup> getGroups() {
-    return groupBox!.values.toList();
-  }
+  List<ArticleGroup> getGroups() => groupBox!.values.toList();
 
-  List<Article> getArticles() {
-    return articleBox!.values.toList();
-  }
+  List<Article> getArticles() => articleBox!.values.toList();
 
-  bool isBookmarked(int pageID) {
-    return articleBox!.containsKey(pageID);
-  }
+  bool isBookmarked(int pageID) => articleBox!.containsKey(pageID);
 }

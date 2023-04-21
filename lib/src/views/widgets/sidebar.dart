@@ -8,10 +8,12 @@ enum Pages {
   settings
 }
 
+// Navigation drawer for the app's main pages
 class Sidebar extends StatelessWidget {
   const Sidebar({Key? key, required this.page}) : super(key: key);
   final Pages page;
 
+  // Each of these activate respective entry in navigation drawer
   static Sidebar search() {return const Sidebar(page: Pages.search);}
   static Sidebar bookmark() {return const Sidebar(page: Pages.bookmark);}
   static Sidebar history() {return const Sidebar(page: Pages.history);}
@@ -33,6 +35,7 @@ class Sidebar extends StatelessWidget {
           children: <Widget>[
             ListView(
               children: <Widget>[
+                // Heading the navigation drawer: WikiVault logo and name
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -42,6 +45,7 @@ class Sidebar extends StatelessWidget {
                   ],
                 ),
                 const Divider(),
+                // List the main pages of the app
                 _menuButton(msg.searchPage, Icons.search, Pages.search == page, () {
                   Navigator.of(context).pop();
                   Future.delayed(const Duration(milliseconds: 150), () {
@@ -69,6 +73,7 @@ class Sidebar extends StatelessWidget {
                 }),
               ],
             ),
+            // Help button at the bottom of the navigation drawer
             Positioned(
               bottom: 10,
               right: 0,
@@ -83,7 +88,7 @@ class Sidebar extends StatelessWidget {
                         applicationName: "WikiVault",
                         applicationVersion: '1.0',
                         applicationIcon: Image.asset('assets/icon.png', height: 40),
-                        applicationLegalese: "Diese App wurde für den Kurs Flutter erstellt");
+                        applicationLegalese: "Diese App wurde für den HWR Flutter-Kurs erstellt");
                   });
                 })
                 ],

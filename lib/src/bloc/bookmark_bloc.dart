@@ -10,6 +10,7 @@ import 'package:wiki_vault/src/models/article_group.dart';
 part 'bookmark_event.dart';
 part 'bookmark_state.dart';
 
+// Bloc class handling bookmarking functionality by adding, removing, and grouping articles to and from the Hive database
 class BookmarkBloc extends Bloc<BookmarkEvent, BookmarkState> {
   BookmarkBloc() : super(const BookmarkState()) {
     on<BookmarkInit>(_init);
@@ -43,14 +44,13 @@ class BookmarkBloc extends Bloc<BookmarkEvent, BookmarkState> {
     articles.remove(event.pageID);
 
     emit(state.copyWith(article: articles));
-
   }
 
   Future<void> _addBookmarkGroup(AddBookmarkGroup event, Emitter<BookmarkState> emit) async {
-
+    // Todo: Implement
   }
 
   Future<void> _removeBookmarkGroup(RemoveBookmarkGroup event, Emitter<BookmarkState> emit) async {
-
+    // Todo: Implement
   }
 }

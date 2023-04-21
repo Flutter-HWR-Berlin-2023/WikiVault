@@ -12,6 +12,9 @@ class SearchPage extends StatefulWidget {
   State<SearchPage> createState() => _SearchPageState();
 }
 
+// Main search screen to search for and display articles
+// Displays list of search results and allows for navigation to article pages
+// Allows for saving articles to bookmarks and/or accessing their brief info
 class _SearchPageState extends State<SearchPage> {
   TextEditingController search = TextEditingController();
 
@@ -25,7 +28,7 @@ class _SearchPageState extends State<SearchPage> {
             onSubmitted: (String text) => BlocProvider.of<SearchBloc>(context).add(SearchTerm(text)),
             cursorColor: Colors.redAccent,
             decoration: const InputDecoration(
-              border: OutlineInputBorder(borderSide: BorderSide(width: 0.5, style: BorderStyle.solid)),
+              border: OutlineInputBorder(borderSide: BorderSide(width: 0.5, style: BorderStyle.solid)), // custom border for text field
               hintText: 'Suchen...',
               filled: true,
               fillColor: Colors.white,
@@ -47,12 +50,15 @@ class _SearchPageState extends State<SearchPage> {
             return const Center(child: Loading());
           case SearchStatus.standby:
           case SearchStatus.continuing:
+            // Default screen
             if (state.lastSearchTerm.isEmpty) {
               return const Center(child: Text('Suche nach Artikeln!', style: TextStyle(fontSize: 18)));
             }
+            // Message on empty search results
             if (state.results.isEmpty) {
               return const Center(child: Text('Keine Ergebnisse', style: TextStyle(fontSize: 18)));
             }
+            // Render search results otherwise
             return SearchList(state.results, state.articles, state.canContinue, state.status == SearchStatus.continuing);
         }
       },

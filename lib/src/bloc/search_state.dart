@@ -2,6 +2,8 @@ part of 'search_bloc.dart';
 
 enum SearchStatus { initial, standby, searching, continuing }
 
+// SearchState class to manage the state of a search, including the search status, search results, articles, and search history
+// Also includes methods to create a new search or continue an existing search
 class SearchState extends Equatable {
   const SearchState({
     this.status = SearchStatus.initial,
@@ -43,6 +45,7 @@ class SearchState extends Equatable {
     );
   }
 
+  // Given a search term, fetches the first n search results and returns the updated list
   SearchState newSearch(bool canContinue, String lastSearchTerm, int offset, List<Search> newResults, Map<int, Article> newArticles) {
     return copyWith(
         status: SearchStatus.standby,
@@ -54,6 +57,7 @@ class SearchState extends Equatable {
         );
   }
 
+  // Given a list of search results, fetches the article extracts for each result and returns the updated list
   SearchState continueSearch(bool canContinue, int offset, List<Search> newResults, Map<int, Article> newArticles) {
     return copyWith(
         status: SearchStatus.standby,

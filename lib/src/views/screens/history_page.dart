@@ -5,6 +5,8 @@ import 'package:wiki_vault/src/models/article.dart';
 import 'package:wiki_vault/src/views/widgets/search/search_bookmark.dart';
 import 'package:wiki_vault/src/views/widgets/sidebar.dart';
 
+// History page lists those articles that have been accessed in fulltext
+// Per article, the list will show only the most recent access
 class HistoryPage extends StatefulWidget {
   const HistoryPage({Key? key}) : super(key: key);
 
@@ -53,8 +55,8 @@ class _HistoryPageState extends State<HistoryPage> {
       separatorBuilder: (_, index) {
         return const Divider(color: Colors.grey);
       },
-      controller: ScrollController(),
-      physics: const BouncingScrollPhysics(),
+      controller: ScrollController(), // to enable scroll physics
+      physics: const BouncingScrollPhysics(), // realizing Android scroll haptics
     );
   }
 
@@ -63,7 +65,7 @@ class _HistoryPageState extends State<HistoryPage> {
     return Scaffold(
       appBar: _appbar(),
       body: _body(context),
-      drawer: Sidebar.history(),
+      drawer: Sidebar.history(), // activate the history tab in the sidebar
     );
   }
 }

@@ -7,28 +7,34 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => SplashScreenState();
 }
 
+// This class represents the state of the SplashScreen widget, faking a loading animation
 class SplashScreenState extends State<SplashScreen> with TickerProviderStateMixin {
-  late AnimationController controller;
+  late AnimationController controller; // Controller for the progress indicator animation
 
   @override
   void initState() {
     controller = AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 5),
+      vsync: this, // animation to be synced with state of SplashScreenState object
+      duration: const Duration(milliseconds: 1500),
     );
-    controller.addListener(() => setState(() {}));
-    controller.forward().whenComplete(() => Navigator.of(context).pushReplacementNamed('/search'));
+    controller.addListener(() => setState(() {})); // Add a listener to the animation controller to update the state when the animation changes
+    // Wait for another 250 milliseconds after the animation is complete
+    controller.forward().whenComplete(() async {
+      await Future.delayed(const Duration(milliseconds: 250));
+      Navigator.of(context).pushReplacementNamed('/search');
+    });
     super.initState();
   }
 
   @override
   void dispose() {
-    controller.dispose();
+    controller.dispose(); // Dispose of animation controller as state itself is disposed
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    // Build widget tree for SplashScreen
     return Scaffold(
       body: Center(
         child: FractionallySizedBox(
@@ -65,7 +71,7 @@ class SplashScreenState extends State<SplashScreen> with TickerProviderStateMixi
                       child: LinearProgressIndicator(
                         color: Colors.redAccent,
                         backgroundColor: Colors.grey,
-                        value: controller.value,
+                        value: controller.value, // Set value of progress indicator to current value of animating controller
                       ),
                     ),
                   ],

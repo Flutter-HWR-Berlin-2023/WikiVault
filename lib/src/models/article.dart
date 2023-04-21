@@ -2,6 +2,8 @@ import 'package:hive/hive.dart';
 
 part 'article.g.dart';
 
+// Hive data model for Article with pageID, group, title, article, and description fields, 
+// along with methods for JSON deserialization and copying with optional field updates (using Hive annotations for serialization)
 @HiveType(typeId: 1)
 class Article {
   @HiveField(0)
