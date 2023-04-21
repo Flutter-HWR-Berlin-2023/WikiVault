@@ -19,7 +19,7 @@ WikiVault is a Flutter app that allows you to search, read and bookmark Wikipedi
 To get started with WikiVault, clone this repository and open it in Visual Studio Code or Android Studio. Then, run the app on an emulator or physical device.
 
 ```sh
-git clone https://github.com/your_username/WikiVault.git
+git clone https://github.com/Flutter-HWR-Berlin-2023/app.git
 ```
 
 
