@@ -42,10 +42,7 @@ class BookmarkState extends Equatable {
   bool isStandby() => status == BookmarkStatus.standby;
 
   bool bookmarksEmpty() => articleBox!.isEmpty;
-
   List<ArticleGroup> getGroups() => groupBox!.values.toList();
-
   List<Article> getArticles() => articleBox!.values.toList();
-
   bool isBookmarked(int pageID) => articleBox!.containsKey(pageID);
 }

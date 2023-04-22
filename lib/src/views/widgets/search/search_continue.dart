@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wiki_vault/src/bloc/search_bloc.dart' as bloc;
+import 'package:wiki_vault/src/core/messages.dart' as app_msg;
 
-// Stateless widget displayinh a button with a circular progress indicator if 'continues' is true, 
+// Stateless widget displaying a button with a circular progress indicator if 'continues' is true,
 // otherwise displays a button with text "MEHR LADEN" and triggers a search event when pressed.
 class SearchContinue extends StatelessWidget {
-  const SearchContinue(this.continues, {Key? key}) : super(key: key);
+  const SearchContinue({required this.continues, Key? key}) : super(key: key);
   final bool continues; // whether or not the user is currently searching
 
   @override
@@ -25,8 +26,8 @@ class SearchContinue extends StatelessWidget {
               )
             : ElevatedButton(
                 style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll<Color>(Colors.redAccent)),
-                onPressed: () => BlocProvider.of<bloc.SearchBloc>(context).add(bloc.SearchContinue()),
-                child: const Text("MEHR LADEN"),
+                onPressed: () => BlocProvider.of<bloc.SearchBloc>(context).add(bloc.SearchContinue(context)),
+                child: const Text(app_msg.continueButton),
               ),
       ),
     );

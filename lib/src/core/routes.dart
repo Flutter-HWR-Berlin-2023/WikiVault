@@ -27,7 +27,7 @@ class Routes {
         return FadeTransitionRoute<bool>(builder: (BuildContext context) {
           Article article = settings.arguments as Article;
           BlocProvider.of<SearchBloc>(context).add(SearchAddHistory(article));
-          return ArticlePage(article);
+          return ArticlePage(article: article);
         }, settings: settings);
       default:
         return FadeTransitionRoute<bool>(builder: (BuildContext context) => const SearchPage(), settings: settings);

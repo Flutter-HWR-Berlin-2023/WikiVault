@@ -5,14 +5,15 @@ import 'package:wiki_vault/src/models/article.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-// import 'package:wiki_vault/src/models/article_group.dart';
+import 'package:wiki_vault/src/models/article_group.dart';
+import 'package:wiki_vault/src/core/messages.dart' as app_msg;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // Initialize Hive database
   await Hive.initFlutter();
   Hive.registerAdapter(ArticleAdapter());
-  //Hive.registerAdapter(ArticleGroupAdapter());
+  Hive.registerAdapter(ArticleGroupAdapter());
   runApp(const WikiVault());
 }
 
@@ -27,7 +28,7 @@ class WikiVault extends StatelessWidget {
           BlocProvider(lazy: false, create: (BuildContext context) => BookmarkBloc()..add(BookmarkInit())),
         ],
         child: MaterialApp(
-          title: 'WikiVault',
+          title: app_msg.appName,
           onGenerateRoute: (routeSettings) => Routes.onGenerateRoute(routeSettings),
           initialRoute: '/splash',
           theme: ThemeData(

@@ -13,17 +13,22 @@ class SearchSettings extends SearchEvent {}
 
 // Represents a search term event with a given search term string
 class SearchTerm extends SearchEvent {
-  SearchTerm(this.searchTerm);
+  SearchTerm(this.context, this.searchTerm);
+  final BuildContext context;
   final String searchTerm;
 }
 
 // Represents a search continuation event (called when the user scrolls to the bottom of the search results)
-class SearchContinue extends SearchEvent {}
+class SearchContinue extends SearchEvent {
+  SearchContinue(this.context);
+  final BuildContext context;
+}
 
-// Represents a search article retrieval event with a given page ID integer
+// Represents a search article retrieval event with a given search
 class SearchGetArticle extends SearchEvent {
-  SearchGetArticle(this.pageID);
-  final int pageID;
+  SearchGetArticle(this.context, this.search);
+  final BuildContext context;
+  final Search search;
 }
 
 // Represents a search history addition event with a given article object (called when the user selects an article from search results)

@@ -45,30 +45,6 @@ class SearchState extends Equatable {
     );
   }
 
-  // Given a search term, fetches the first n search results and returns the updated list
-  SearchState newSearch(bool canContinue, String lastSearchTerm, int offset, List<Search> newResults, Map<int, Article> newArticles) {
-    return copyWith(
-        status: SearchStatus.standby,
-        canContinue: canContinue,
-        lastSearchTerm: lastSearchTerm,
-        offset: offset,
-        results: newResults,
-        articles: newArticles
-        );
-  }
-
-  // Given a list of search results, fetches the article extracts for each result and returns the updated list
-  SearchState continueSearch(bool canContinue, int offset, List<Search> newResults, Map<int, Article> newArticles) {
-    return copyWith(
-        status: SearchStatus.standby,
-        canContinue: canContinue,
-        lastSearchTerm: lastSearchTerm,
-        offset: offset,
-        results: results..addAll(newResults),
-        articles: articles..addAll(newArticles)
-    );
-  }
-
   @override
   List<Object?> get props => [status, canContinue, lastSearchTerm, offset, results, articles, history];
 
@@ -77,8 +53,6 @@ class SearchState extends Equatable {
   bool isSearching() => (status == SearchStatus.searching);
   bool isContinuing() => (status == SearchStatus.continuing);
 
-  Article getArticle(int pageID) {
-    if (articles.containsKey(pageID)) return articles[pageID]!;
-    return Article();
-  }
+  Article getArticle(int pageID) => (articles.containsKey(pageID)) ? articles[pageID]! : Article();
+
 }

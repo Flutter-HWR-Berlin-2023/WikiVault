@@ -4,6 +4,7 @@ import 'package:wiki_vault/src/bloc/search_bloc.dart';
 import 'package:wiki_vault/src/views/widgets/loading.dart';
 import 'package:wiki_vault/src/views/widgets/search/search_list.dart';
 import 'package:wiki_vault/src/views/widgets/sidebar.dart';
+import 'package:wiki_vault/src/core/messages.dart' as app_msg;
 
 class SearchPage extends StatefulWidget {
   const SearchPage({Key? key}) : super(key: key);
@@ -25,18 +26,18 @@ class _SearchPageState extends State<SearchPage> {
           child: TextField(
             controller: search,
             textInputAction: TextInputAction.search,
-            onSubmitted: (String text) => BlocProvider.of<SearchBloc>(context).add(SearchTerm(text)),
+            onSubmitted: (String text) => BlocProvider.of<SearchBloc>(context).add(SearchTerm(context, text)),
             cursorColor: Colors.redAccent,
             decoration: const InputDecoration(
               border: OutlineInputBorder(borderSide: BorderSide(width: 0.5, style: BorderStyle.solid)), // custom border for text field
-              hintText: 'Suchen...',
+              hintText: app_msg.searchHint,
               filled: true,
               fillColor: Colors.white,
               contentPadding: EdgeInsets.all(15),
             ),
           )),
       actions: <Widget>[
-        IconButton(onPressed: () => BlocProvider.of<SearchBloc>(context).add(SearchTerm(search.text)), icon: const Icon(Icons.search))
+        IconButton(onPressed: () => BlocProvider.of<SearchBloc>(context).add(SearchTerm(context, search.text)), icon: const Icon(Icons.search))
       ],
     );
   }
@@ -52,14 +53,19 @@ class _SearchPageState extends State<SearchPage> {
           case SearchStatus.continuing:
             // Default screen
             if (state.lastSearchTerm.isEmpty) {
-              return const Center(child: Text('Suche nach Artikeln!', style: TextStyle(fontSize: 18)));
+              return const Center(child: Text(app_msg.searchAppeal, style: TextStyle(fontSize: 18)));
             }
             // Message on empty search results
             if (state.results.isEmpty) {
-              return const Center(child: Text('Keine Ergebnisse', style: TextStyle(fontSize: 18)));
+              return const Center(child: Text(app_msg.searchNoResults, style: TextStyle(fontSize: 18)));
             }
             // Render search results otherwise
-            return SearchList(state.results, state.articles, state.canContinue, state.status == SearchStatus.continuing);
+            return SearchList(
+                searches: state.results,
+                articles: state.articles,
+                canContinue: state.canContinue,
+                continues: state.status == SearchStatus.continuing
+            );
         }
       },
     );

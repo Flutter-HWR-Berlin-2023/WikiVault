@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wiki_vault/src/core/messages.dart' as app_msg;
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -54,12 +55,12 @@ class SplashScreenState extends State<SplashScreen> with TickerProviderStateMixi
                         padding: const EdgeInsets.all(10.0),
                         child: CircleAvatar(
                           backgroundColor: Colors.transparent,
-                          child: Image.asset('assets/icon.png'),
+                          child: Image.asset(app_msg.appAssetIcon),
                           radius: 100,
                         ),
                       ),
                     ),
-                    const Text("WikiVault", style: TextStyle(color: Colors.black54, fontWeight: FontWeight.w200, fontSize: 38.0))
+                    const Text(app_msg.appName, style: TextStyle(color: Colors.black54, fontWeight: FontWeight.w200, fontSize: 38.0))
                   ],
                 ),
               ),

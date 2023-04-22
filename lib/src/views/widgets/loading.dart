@@ -20,7 +20,10 @@ class Loading extends StatelessWidget {
         ],
       ),
       child: const Center(
-        child: CircularProgressIndicator(backgroundColor: Colors.white70, color: Colors.redAccent),
+        child: CircularProgressIndicator(
+            backgroundColor: Colors.white70,
+            color: Colors.redAccent
+        ),
       ),
     );
   }

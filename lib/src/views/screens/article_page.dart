@@ -4,7 +4,7 @@ import 'package:wiki_vault/src/models/article.dart';
 
 // Displaying an article in full
 class ArticlePage extends StatelessWidget {
-  const ArticlePage(this.article, {Key? key}) : super(key: key);
+  const ArticlePage({required this.article, Key? key}) : super(key: key);
   final Article article;
 
   PreferredSizeWidget _appbar(BuildContext context) {

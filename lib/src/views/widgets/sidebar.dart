@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wiki_vault/src/core/messages.dart' as msg;
+import 'package:wiki_vault/src/core/messages.dart' as app_msg;
 
 enum Pages {
   search,
@@ -10,14 +10,14 @@ enum Pages {
 
 // Navigation drawer for the app's main pages
 class Sidebar extends StatelessWidget {
-  const Sidebar({Key? key, required this.page}) : super(key: key);
+  const Sidebar({required this.page, Key? key}) : super(key: key);
   final Pages page;
 
   // Each of these activate respective entry in navigation drawer
-  static Sidebar search() {return const Sidebar(page: Pages.search);}
-  static Sidebar bookmark() {return const Sidebar(page: Pages.bookmark);}
-  static Sidebar history() {return const Sidebar(page: Pages.history);}
-  static Sidebar settings() {return const Sidebar(page: Pages.settings);}
+  static Sidebar search() => const Sidebar(page: Pages.search);
+  static Sidebar bookmark() => const Sidebar(page: Pages.bookmark);
+  static Sidebar history() => const Sidebar(page: Pages.history);
+  static Sidebar settings() => const Sidebar(page: Pages.settings);
 
   ListTile _menuButton(String title, IconData icon, bool isActive, Function onPressed) {
     return ListTile(
@@ -39,33 +39,33 @@ class Sidebar extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Image.asset('assets/icon.png', height: 30),
+                    Image.asset(app_msg.appAssetIcon, height: 30),
                     const SizedBox(width: 5),
-                    const Text('WikiVault', style: TextStyle(fontSize: 16))
+                    const Text(app_msg.appName, style: TextStyle(fontSize: 16))
                   ],
                 ),
                 const Divider(),
                 // List the main pages of the app
-                _menuButton(msg.searchPage, Icons.search, Pages.search == page, () {
+                _menuButton(app_msg.searchPage, Icons.search, Pages.search == page, () {
                   Navigator.of(context).pop();
                   Future.delayed(const Duration(milliseconds: 150), () {
                     Navigator.of(context).pushReplacementNamed('/search');
                   });
                 }),
-                _menuButton(msg.bookmarkPage, Icons.bookmark, Pages.bookmark == page, () {
+                _menuButton(app_msg.bookmarkPage, Icons.bookmark, Pages.bookmark == page, () {
                   Navigator.of(context).pop();
                   Future.delayed(const Duration(milliseconds: 150), () {
                     Navigator.of(context).pushReplacementNamed('/bookmark');
                   });
                 }),
-                _menuButton(msg.historyPage, Icons.history, Pages.history == page, () {
+                _menuButton(app_msg.historyPage, Icons.history, Pages.history == page, () {
                   Navigator.of(context).pop();
                   Future.delayed(const Duration(milliseconds: 150), () {
                     Navigator.of(context).pushReplacementNamed('/history');
                   });
                 }),
                 const Divider(),
-                _menuButton(msg.settingsPage, Icons.settings, Pages.settings == page, () {
+                _menuButton(app_msg.settingsPage, Icons.settings, Pages.settings == page, () {
                   Navigator.of(context).pop();
                   Future.delayed(const Duration(milliseconds: 150), () {
                     Navigator.of(context).pushReplacementNamed('/settings');
@@ -80,15 +80,15 @@ class Sidebar extends StatelessWidget {
               left: 0,
               child: Column(
                 children: <Widget>[
-                  _menuButton('Hilfe', Icons.help, false, () {
+                  _menuButton(app_msg.help, Icons.help, false, () {
                   Navigator.of(context).pop();
                   Future.delayed(const Duration(milliseconds: 150), () {
                     showAboutDialog(
                         context: context,
-                        applicationName: "WikiVault",
-                        applicationVersion: '1.0',
-                        applicationIcon: Image.asset('assets/icon.png', height: 40),
-                        applicationLegalese: "Diese App wurde für den HWR Flutter-Kurs erstellt");
+                        applicationName: app_msg.appName,
+                        applicationVersion: app_msg.appVersion,
+                        applicationIcon: Image.asset(app_msg.appAssetIcon, height: 40),
+                        applicationLegalese: app_msg.appLegalese);
                   });
                 })
                 ],

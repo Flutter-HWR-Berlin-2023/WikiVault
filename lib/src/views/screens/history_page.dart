@@ -4,6 +4,7 @@ import 'package:wiki_vault/src/bloc/search_bloc.dart';
 import 'package:wiki_vault/src/models/article.dart';
 import 'package:wiki_vault/src/views/widgets/search/search_bookmark.dart';
 import 'package:wiki_vault/src/views/widgets/sidebar.dart';
+import 'package:wiki_vault/src/core/messages.dart' as app_msg;
 
 // History page lists those articles that have been accessed in fulltext
 // Per article, the list will show only the most recent access
@@ -25,12 +26,12 @@ class _HistoryPageState extends State<HistoryPage> {
 
   PreferredSizeWidget _appbar() {
     return AppBar(
-      title: const Text("Verlauf"),
+      title: const Text(app_msg.historyPage),
     );
   }
 
   Widget _body(BuildContext context) {
-    if (history.isEmpty) return const Center(child: Text('Kein Verlauf', style: TextStyle(fontSize: 18)));
+    if (history.isEmpty) return const Center(child: Text(app_msg.noHistory, style: TextStyle(fontSize: 18)));
     return ListView.separated(
       itemCount: history.length,
       itemBuilder: (context, index) {
@@ -38,16 +39,35 @@ class _HistoryPageState extends State<HistoryPage> {
         return Dismissible(
           key: UniqueKey(),
           onDismissed: (direction) {
-            setState(() {
-              history.removeAt(index);
-            });
+            setState(() { history.removeAt(index); });
             BlocProvider.of<SearchBloc>(context).add(SearchRemoveHistory(item.pageID));
           },
-          background: Container(color: Colors.redAccent),
+          background: Container(
+            color: Colors.redAccent,
+            child: Row(
+              children: [
+                const Icon(Icons.delete),
+                Expanded(child: Container()),
+                const Icon(Icons.delete),
+              ],
+            )
+          ),
           child: ListTile(
               title: Text(item.title),
               subtitle: item.description != null ? Text(item.description![0].toUpperCase() + item.description!.substring(1).toLowerCase()) : null,
-              trailing: SearchBookmark(item),
+              trailing: Wrap(
+                spacing: 12, // space between two icons
+                children: <Widget>[
+                  SearchBookmark(article: item),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(backgroundColor: Colors.redAccent),
+                    onPressed: () {
+                      setState(() { history.removeAt(index); });
+                      BlocProvider.of<SearchBloc>(context).add(SearchRemoveHistory(item.pageID));
+                    },
+                    child: const Icon(Icons.clear))
+                ],
+              ),
             onTap: () => Navigator.of(context).pushNamed('/article', arguments: item),
           ),
         );
