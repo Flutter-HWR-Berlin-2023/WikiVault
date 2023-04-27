@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 import 'package:wiki_vault/src/models/article.dart';
 import 'package:wiki_vault/src/views/widgets/bookmark/bookmark_edit.dart';
-import 'package:wiki_vault/src/views/widgets/search/search_bookmark.dart';
+import 'package:wiki_vault/src/views/widgets/bookmark/bookmark_handling.dart';
 
-// An individual article in the bookmark list consists of a title, a subtitle and a link to the article page (offline)
+/// An individual article in the bookmark list consists of a title, a subtitle and a link to the article page (offline)
 class BookmarkItem extends StatelessWidget {
   const BookmarkItem({required this.article, Key? key}) : super(key: key);
   final Article article;
@@ -18,7 +18,7 @@ class BookmarkItem extends StatelessWidget {
         spacing: 12, // space between two icons
         children: <Widget>[
           BookmarkEdit(article: article),
-          SearchBookmark(article: article)
+          BookmarkHandling(article: article)
         ],
       ),
       onTap: () => Navigator.of(context).pushNamed('/article', arguments: article),

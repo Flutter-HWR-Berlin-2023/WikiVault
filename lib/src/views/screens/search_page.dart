@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wiki_vault/src/bloc/search_bloc.dart';
-import 'package:wiki_vault/src/views/widgets/loading.dart';
+import 'package:wiki_vault/src/views/widgets/general/loading.dart';
 import 'package:wiki_vault/src/views/widgets/search/search_list.dart';
-import 'package:wiki_vault/src/views/widgets/sidebar.dart';
+import 'package:wiki_vault/src/views/widgets/general/sidebar.dart';
 import 'package:wiki_vault/src/core/messages.dart' as app_msg;
 
 class SearchPage extends StatefulWidget {
@@ -13,9 +13,9 @@ class SearchPage extends StatefulWidget {
   State<SearchPage> createState() => _SearchPageState();
 }
 
-// Main search screen to search for and display articles
-// Displays list of search results and allows for navigation to article pages
-// Allows for saving articles to bookmarks and/or accessing their brief info
+/// Main search screen to search for and display articles
+/// Displays list of search results and allows for navigation to article pages
+/// Allows for saving articles to bookmarks and/or accessing their brief info
 class _SearchPageState extends State<SearchPage> {
   TextEditingController search = TextEditingController();
 

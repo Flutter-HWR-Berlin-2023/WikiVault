@@ -9,7 +9,7 @@ import 'package:wiki_vault/src/views/screens/search_page.dart';
 import 'package:wiki_vault/src/views/screens/settings_page.dart';
 import 'package:wiki_vault/src/views/screens/splash_screen.dart';
 
-// Defining routes and a custom route that fades in and out of views.
+/// Defining routes and a custom route that fades in and out of views.
 class Routes {
   static Route onGenerateRoute(RouteSettings settings) {
     switch (settings.name!) {

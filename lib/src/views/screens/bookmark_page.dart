@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wiki_vault/src/bloc/bookmark_bloc.dart';
 import 'package:wiki_vault/src/views/widgets/bookmark/bookmark_list.dart';
-import 'package:wiki_vault/src/views/widgets/loading.dart';
-import 'package:wiki_vault/src/views/widgets/sidebar.dart';
+import 'package:wiki_vault/src/views/widgets/general/loading.dart';
+import 'package:wiki_vault/src/views/widgets/general/sidebar.dart';
 import 'package:wiki_vault/src/core/messages.dart' as app_msg;
 
+/// Bookmark Page to list all bookmarked articles
 class BookmarkPage extends StatelessWidget {
   const BookmarkPage({Key? key}) : super(key: key);
 
@@ -23,11 +24,10 @@ class BookmarkPage extends StatelessWidget {
           case BookmarkStatus.loading:
             return const Center(child: Loading());
           case BookmarkStatus.standby:
-            if (state.bookmarksEmpty()) {
+            if (state.isBookmarksEmpty()) {
               return const Center(child: Text(app_msg.noBookmarks, style: TextStyle(fontSize: 18)));
             }
             return BookmarkList(
-                groupList: state.getGroups(),
                 articleList: state.getArticles()
             );
         }

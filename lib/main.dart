@@ -1,19 +1,17 @@
-import 'package:wiki_vault/src/bloc/bookmark_bloc.dart';
-import 'package:wiki_vault/src/bloc/search_bloc.dart';
-import 'package:wiki_vault/src/core/routes.dart';
-import 'package:wiki_vault/src/models/article.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wiki_vault/src/models/article_group.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:wiki_vault/src/bloc/bookmark_bloc.dart';
+import 'package:wiki_vault/src/bloc/search_bloc.dart';
 import 'package:wiki_vault/src/core/messages.dart' as app_msg;
+import 'package:wiki_vault/src/core/routes.dart';
+import 'package:wiki_vault/src/models/article.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // Initialize Hive database
   await Hive.initFlutter();
   Hive.registerAdapter(ArticleAdapter());
-  Hive.registerAdapter(ArticleGroupAdapter());
   runApp(const WikiVault());
 }
 
@@ -32,11 +30,9 @@ class WikiVault extends StatelessWidget {
           onGenerateRoute: (routeSettings) => Routes.onGenerateRoute(routeSettings),
           initialRoute: '/splash',
           theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(seedColor: Colors.redAccent),
-            appBarTheme: const AppBarTheme(
-              color: Colors.redAccent,
-            ),
-            primaryColor: Colors.redAccent
+              colorScheme: ColorScheme.fromSeed(seedColor: Colors.redAccent),
+              appBarTheme: const AppBarTheme(color: Colors.redAccent),
+              primaryColor: Colors.redAccent
           ),
           debugShowCheckedModeBanner: false,
         )

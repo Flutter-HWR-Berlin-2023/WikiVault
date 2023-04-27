@@ -4,8 +4,10 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:wiki_vault/src/bloc/search_bloc.dart';
 import 'package:wiki_vault/src/models/article.dart';
 import 'package:wiki_vault/src/models/search.dart';
-import 'package:wiki_vault/src/views/widgets/search/search_bookmark.dart';
+import 'package:wiki_vault/src/views/widgets/bookmark/bookmark_handling.dart';
 
+/// Stateful Widget for displaying informationen about the search item and long tap to fetch article
+/// Able to display extract (if possible) with open/close animation
 class SearchItem extends StatefulWidget {
   const SearchItem({required this.search, required this.article, Key? key}) : super(key: key);
   final Search search;
@@ -56,7 +58,7 @@ class _SearchItemState extends State<SearchItem> with SingleTickerProviderStateM
                     ? ListTile(
                     title: Text(widget.search.title, style: const TextStyle(color: Colors.red, fontWeight: FontWeight.w500)),
                     subtitle: widget.search.description != null ? Text(widget.search.description![0].toUpperCase() + widget.search.description!.substring(1).toLowerCase()) : null,
-                    trailing: SearchBookmark(article: widget.article),
+                    trailing: BookmarkHandling(article: widget.article),
                     onTap: () => Navigator.of(context).pushNamed('/article', arguments: widget.article),
                   )
                 : ListTile(

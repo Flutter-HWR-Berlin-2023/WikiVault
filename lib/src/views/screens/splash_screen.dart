@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wiki_vault/src/core/messages.dart' as app_msg;
 
+/// A Stateful Widget faking a loading animation
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
 
@@ -8,7 +9,6 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => SplashScreenState();
 }
 
-// This class represents the state of the SplashScreen widget, faking a loading animation
 class SplashScreenState extends State<SplashScreen> with TickerProviderStateMixin {
   late AnimationController controller; // Controller for the progress indicator animation
 

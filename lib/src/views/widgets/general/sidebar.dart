@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:wiki_vault/src/core/messages.dart' as app_msg;
 
-enum Pages {
-  search,
-  bookmark,
-  history,
-  settings
-}
+enum Pages { search, bookmark, history, settings }
 
-// Navigation drawer for the app's main pages
+/// Navigation drawer for the app's main pages
 class Sidebar extends StatelessWidget {
   const Sidebar({required this.page, Key? key}) : super(key: key);
   final Pages page;

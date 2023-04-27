@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wiki_vault/src/bloc/search_bloc.dart';
 import 'package:wiki_vault/src/models/article.dart';
-import 'package:wiki_vault/src/views/widgets/search/search_bookmark.dart';
-import 'package:wiki_vault/src/views/widgets/sidebar.dart';
+import 'package:wiki_vault/src/views/widgets/bookmark/bookmark_handling.dart';
+import 'package:wiki_vault/src/views/widgets/general/sidebar.dart';
 import 'package:wiki_vault/src/core/messages.dart' as app_msg;
 
-// History page lists those articles that have been accessed in fulltext
-// Per article, the list will show only the most recent access
+/// History page lists those articles that have been accessed in fulltext
+/// Per article, the list will show only the most recent access
 class HistoryPage extends StatefulWidget {
   const HistoryPage({Key? key}) : super(key: key);
 
@@ -58,7 +58,7 @@ class _HistoryPageState extends State<HistoryPage> {
               trailing: Wrap(
                 spacing: 12, // space between two icons
                 children: <Widget>[
-                  SearchBookmark(article: item),
+                  BookmarkHandling(article: item),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(backgroundColor: Colors.redAccent),
                     onPressed: () {

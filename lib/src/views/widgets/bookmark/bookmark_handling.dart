@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wiki_vault/src/bloc/bookmark_bloc.dart';
 import 'package:wiki_vault/src/models/article.dart';
-import 'package:wiki_vault/src/views/widgets/dialog.dart';
+import 'package:wiki_vault/src/views/widgets/general/dialog.dart';
+import 'package:wiki_vault/src/core/messages.dart' as app_msg;
 
-// Stateless widget displaying a bookmark button 
-// button changes color based on whether article is bookmarked, adding/removing the article from bookmarks when pressed based on state
-class SearchBookmark extends StatelessWidget {
-  const SearchBookmark({required this.article, Key? key}) : super(key: key);
+/// Stateless widget displaying a bookmark button
+/// button changes color based on whether article is bookmarked, adding/removing the article from bookmarks when pressed based on state
+class BookmarkHandling extends StatelessWidget {
+  const BookmarkHandling({required this.article, Key? key}) : super(key: key);
   final Article article;
 
   @override
@@ -22,8 +23,8 @@ class SearchBookmark extends StatelessWidget {
                   style: ElevatedButton.styleFrom(backgroundColor: Colors.redAccent),
                   onPressed: () => showDialogScreen(
                       context: context,
-                      title: "Lesezeichen Entfernen",
-                      content: Text('Möchtest du wirklich ' + article.title + ' von den Lesezeichen entfernen?'),
+                      title: app_msg.removeBookmark,
+                      content: Text(app_msg.buttonRemoveBookmark(article.title)),
                       actions: [
                         ElevatedButton(
                             style: ElevatedButton.styleFrom(backgroundColor: Colors.redAccent),
@@ -31,12 +32,12 @@ class SearchBookmark extends StatelessWidget {
                               BlocProvider.of<BookmarkBloc>(context).add(RemoveBookmark(context, article));
                               Navigator.pop(context);
                             },
-                            child: const Text("Entfernen")
+                            child: const Text(app_msg.remove)
                         ),
                         ElevatedButton(
                             style: ElevatedButton.styleFrom(backgroundColor: Colors.redAccent),
                             onPressed: () => Navigator.pop(context),
-                            child: const Text("Abbrechen")
+                            child: const Text(app_msg.cancel)
                         ),
                       ]
                   ),
@@ -47,8 +48,8 @@ class SearchBookmark extends StatelessWidget {
                 style: ElevatedButton.styleFrom(backgroundColor: Colors.grey),
                 onPressed: () => showDialogScreen(
                   context: context,
-                  title: "Lesezeichen Hinzufügen",
-                  content: Text('Möchtest du wirklich ' + article.title + ' zu den Lesezeichen hinzufügen?'),
+                  title: app_msg.addBookmark,
+                  content: Text(app_msg.buttonAddBookmark(article.title)),
                   actions: [
                     ElevatedButton(
                         style: ElevatedButton.styleFrom(backgroundColor: Colors.redAccent),
@@ -56,12 +57,12 @@ class SearchBookmark extends StatelessWidget {
                           BlocProvider.of<BookmarkBloc>(context).add(AddBookmark(context, article));
                           Navigator.pop(context);
                         },
-                        child: const Text("Hinzufügen")
+                        child: const Text(app_msg.add)
                     ),
                     ElevatedButton(
                         style: ElevatedButton.styleFrom(backgroundColor: Colors.redAccent),
                         onPressed: () => Navigator.pop(context),
-                        child: const Text("Abbrechen")
+                        child: const Text(app_msg.cancel)
                     ),
                   ]
                 ),

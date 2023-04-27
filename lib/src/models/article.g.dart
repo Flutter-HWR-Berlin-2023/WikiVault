@@ -18,27 +18,24 @@ class ArticleAdapter extends TypeAdapter<Article> {
     };
     return Article(
       pageID: fields[0] as int,
-      group: fields[1] as int,
-      title: fields[2] as String,
+      title: fields[1] as String,
+      description: fields[2] as String?,
       article: fields[3] as String,
-      description: fields[4] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, Article obj) {
     writer
-      ..writeByte(5)
+      ..writeByte(4)
       ..writeByte(0)
       ..write(obj.pageID)
       ..writeByte(1)
-      ..write(obj.group)
-      ..writeByte(2)
       ..write(obj.title)
+      ..writeByte(2)
+      ..write(obj.description)
       ..writeByte(3)
-      ..write(obj.article)
-      ..writeByte(4)
-      ..write(obj.description);
+      ..write(obj.article);
   }
 
   @override

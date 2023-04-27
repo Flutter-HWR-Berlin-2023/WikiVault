@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wiki_vault/src/bloc/bookmark_bloc.dart';
 import 'package:wiki_vault/src/models/article.dart';
-import 'package:wiki_vault/src/views/widgets/dialog.dart';
+import 'package:wiki_vault/src/views/widgets/general/dialog.dart';
+import 'package:wiki_vault/src/core/messages.dart' as app_msg;
 
+/// Stateful Widget to change information (title, description) of an bookmarked article
 class BookmarkEdit extends StatefulWidget {
   const BookmarkEdit({required this.article, Key? key}) : super(key: key);
   final Article article;
@@ -14,8 +15,8 @@ class BookmarkEdit extends StatefulWidget {
 }
 
 class _BookmarkEditState extends State<BookmarkEdit> {
-  TextEditingController _title = TextEditingController();
-  TextEditingController _description = TextEditingController();
+  final TextEditingController _title = TextEditingController();
+  final TextEditingController _description = TextEditingController();
 
   @override
   void initState() {
@@ -37,13 +38,13 @@ class _BookmarkEditState extends State<BookmarkEdit> {
         style: ElevatedButton.styleFrom(backgroundColor: Colors.redAccent),
         onPressed: () => showDialogScreen(
             context: context,
-            title: "Lesezeichen Ändern",
+            title: app_msg.changeBookmark,
             content: Column(
               children: [
-                Text('Änderungen von ' + widget.article.title),
+                Text(app_msg.changeBookmarkTitle(widget.article.title)),
                 ListTile(
                   contentPadding: const EdgeInsets.fromLTRB(5, 20, 20, 5),
-                  title: const Text("Titel", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+                  title: const Text(app_msg.title, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
                   subtitle: TextField(
                     controller: _title,
                     decoration: const InputDecoration(
@@ -54,7 +55,7 @@ class _BookmarkEditState extends State<BookmarkEdit> {
                 ),
                 ListTile(
                   contentPadding: const EdgeInsets.fromLTRB(5, 20, 20, 50),
-                  title: const Text("Beschreibung", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+                  title: const Text(app_msg.description, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
                   subtitle: TextField(
                     controller: _description,
                     decoration: const InputDecoration(
@@ -73,12 +74,12 @@ class _BookmarkEditState extends State<BookmarkEdit> {
                     BlocProvider.of<BookmarkBloc>(context).add(AddBookmark(context, widget.article.copyWith(title: _title.text, description: description)));
                     Navigator.pop(context);
                   },
-                  child: const Text("Ändern")
+                  child: const Text(app_msg.change)
               ),
               ElevatedButton(
                   style: ElevatedButton.styleFrom(backgroundColor: Colors.redAccent),
                   onPressed: () => Navigator.pop(context),
-                  child: const Text("Abbrechen")
+                  child: const Text(app_msg.cancel)
               ),
             ]
         ),
